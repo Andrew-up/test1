@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package tree;
+
+message TreeObjectW{
+
+    optional int64 id = 1;
+    optional string ObjName = 2;
+    optional TreeObjectW parent = 3;
+    repeated TreeObjectW child = 4;
+
+}
+
+
+//message TreeParentW{
+//    optional int64 id = 1;
+//    optional string parentName = 2;
+//}
+
+//message TreeChildW{
+//    optional int64 id = 1;
+//    optional string childName = 2;
+//}
