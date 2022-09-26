@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
     for (int i = 0; i < 1; ++i) {
         TreeObjectW * parent = generateParent(i, to_string(i));
         vector<TreeObjectW> * child = generateChilds(i, to_string(i));;
-        vector<QTreeWidgetItem> * listTreeObjectW = w.addTreeElement(parent, child,child->size());
-        w.addChildForRoot(&listTreeObjectW->at(0));
+       w.addTreeElement(parent, child,child->size());
+//        w.addChildForRoot(&listTreeObjectW->at(0));
     }
 
     w.show();
