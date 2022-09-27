@@ -4,6 +4,7 @@
 #include "foo.pb.h"
 #include "qtreewidget.h"
 #include <QMainWindow>
+#include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
 using namespace tree;
@@ -20,11 +21,22 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void test(std::string editText);
-    void addTreeElement(TreeObjectW * parent, vector<TreeObjectW> * childs,int sizeChild);
-    vector<QTreeWidgetItem> addChildForRoot(QTreeWidgetItem *parent, QString name);
+    void addTreeElement(TreeObjectW * parent,int sizeChild,int countRoot);
+    void fillTreeBranch(int n, QTreeWidgetItem * item,int countRoot);
+    void test();
+
+    void findParent(QString findTextItem);
+    void findChild(QString findItem);
+    void findNeighbor(QString findTextItem);
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
 private:
     Ui::MainWindow *ui;
+
+
+
 
 
 

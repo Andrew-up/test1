@@ -33,6 +33,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         foo.proto
         main.h
+        service/TreeGenerator.cpp
+        service/TreeGenerator.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
