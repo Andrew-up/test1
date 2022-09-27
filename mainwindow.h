@@ -28,6 +28,7 @@ public:
     void findParent(QString findTextItem);
     void findChild(QString findItem);
     void findNeighbor(QString findTextItem);
+    void findAndOpenPath(QString findTextItem);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

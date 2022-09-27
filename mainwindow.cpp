@@ -58,16 +58,17 @@ void MainWindow::findParent(QString findTextItem)
 {
     qDebug() << "findTextItem: "+findTextItem;
     QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
+    QTreeWidgetItem * ttt;
     foreach(QTreeWidgetItem* item, clist)
     {
-
         if(item->parent() != 0){
             qDebug() << item->parent()->text(0);
-            new QTreeWidgetItem(ui->treeWidget_2,QStringList(item->parent()->text(0)));
+           ttt = new QTreeWidgetItem(ui->treeWidget_2,QStringList(item->parent()->text(0)));
+           ttt->treeWidget()->sortItems(0,Qt::DescendingOrder);
             findParent(item->parent()->text(0));
         }
     }
-
+    delete ttt;
 }
 
 void MainWindow::findChild(QString findItem)
@@ -100,8 +101,7 @@ void MainWindow::findNeighbor(QString findTextItem)
     QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
     foreach(QTreeWidgetItem* item, clist)
     {
-
-//        qDebug() << "findNeighbor: "+ clist.at(0)->treeWidget();
+      qDebug() << "index: "+ item->treeWidget()->currentItem()->text(0) ;
         QTreeWidget * newItem = ui->treeWidget_3;
         QTreeWidgetItem * qt;
         for (int var = 0; var < clist.at(0)->childCount(); ++var) {
@@ -116,6 +116,25 @@ void MainWindow::findNeighbor(QString findTextItem)
 
 }
 
+void MainWindow::findAndOpenPath(QString findTextItem)
+{
+    QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
+    foreach(QTreeWidgetItem* item, clist)
+    {
+        while(item->parent()!=0){
+            qDebug() << "openParent "+ item->text(0);
+            item->parent()->treeWidget()->expandItem(item);
+            item = item->parent();
+        }
+         item->treeWidget()->expandItem(item);
+
+    }
+}
+
+
+
+
+
 void MainWindow::keyPressEvent(QKeyEvent * event)
 {
     if(event->key()==Qt::Key_Alt){
@@ -125,6 +144,7 @@ void MainWindow::keyPressEvent(QKeyEvent * event)
         findParent(ui->lineEdit_2->text());
         findChild(ui->lineEdit_2->text());
         findNeighbor(ui->lineEdit_2->text());
+        findAndOpenPath(ui->lineEdit_2->text());
     }
 
     if(event->key()==Qt::Key_Control){
