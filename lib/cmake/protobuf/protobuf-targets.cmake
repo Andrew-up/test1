@@ -45,21 +45,22 @@ unset(_expectedTargets)
 add_library(protobuf::libprotobuf-lite STATIC IMPORTED)
 
 set_target_properties(protobuf::libprotobuf-lite PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "C:/MyProgramm/protobuf-3.21.4/src"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Programm/protobuf-3.21.6/src"
 )
 
 # Create imported target protobuf::libprotobuf
 add_library(protobuf::libprotobuf STATIC IMPORTED)
 
 set_target_properties(protobuf::libprotobuf PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "C:/MyProgramm/protobuf-3.21.4/src"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Programm/protobuf-3.21.6/src"
+  INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:ZLIB::ZLIB>"
 )
 
 # Create imported target protobuf::libprotoc
 add_library(protobuf::libprotoc STATIC IMPORTED)
 
 set_target_properties(protobuf::libprotoc PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "C:/MyProgramm/protobuf-3.21.4/src"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Programm/protobuf-3.21.6/src"
   INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:protobuf::libprotobuf>"
 )
 
@@ -70,27 +71,27 @@ add_executable(protobuf::protoc IMPORTED)
 set_property(TARGET protobuf::libprotobuf-lite APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(protobuf::libprotobuf-lite PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "C:/MyProgramm/protobuf-3.21.4/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/libprotobuf-lite.a"
+  IMPORTED_LOCATION_RELEASE "C:/Programm/protobuf-3.21.6/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/libprotobuf-lite.a"
   )
 
 # Import target "protobuf::libprotobuf" for configuration "Release"
 set_property(TARGET protobuf::libprotobuf APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(protobuf::libprotobuf PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "C:/MyProgramm/protobuf-3.21.4/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/libprotobuf.a"
+  IMPORTED_LOCATION_RELEASE "C:/Programm/protobuf-3.21.6/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/libprotobuf.a"
   )
 
 # Import target "protobuf::libprotoc" for configuration "Release"
 set_property(TARGET protobuf::libprotoc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(protobuf::libprotoc PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "C:/MyProgramm/protobuf-3.21.4/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/libprotoc.a"
+  IMPORTED_LOCATION_RELEASE "C:/Programm/protobuf-3.21.6/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/libprotoc.a"
   )
 
 # Import target "protobuf::protoc" for configuration "Release"
 set_property(TARGET protobuf::protoc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(protobuf::protoc PROPERTIES
-  IMPORTED_LOCATION_RELEASE "C:/MyProgramm/protobuf-3.21.4/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/protoc.exe"
+  IMPORTED_LOCATION_RELEASE "C:/Programm/protobuf-3.21.6/build-cmake-Desktop_Qt_6_2_5_MinGW_64_bit-Release/protoc.exe"
   )
 
 # This file does not depend on other imported targets which have

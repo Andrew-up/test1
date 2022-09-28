@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <QLabel>
 #include <string>
-#include "service/TreeGenerator.h"
 #include <iostream>
 
 using namespace std;

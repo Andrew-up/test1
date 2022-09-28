@@ -22,7 +22,7 @@ find_package(Protobuf REQUIRED HINTS ${PROTOBUF_ROOT}lib/cmake/protobuf/)
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS foo.proto)
 ADD_LIBRARY(proto ${PROTO_HDRS} ${PROTO_SRCS})
 
-
+message(STATUS "TESTSS")
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 

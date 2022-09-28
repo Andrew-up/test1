@@ -3,7 +3,6 @@
 #include "./ui_mainwindow.h"
 #include <string>
 #include <QKeyEvent>
-#include "service/TreeGenerator.h"
 
 using namespace tree;
 using namespace std;
@@ -56,62 +55,63 @@ void MainWindow::test(){
 
 void MainWindow::findParent(QString findTextItem)
 {
-    qDebug() << "findTextItem: "+findTextItem;
     QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
-    QTreeWidgetItem * ttt;
+    QTreeWidget * thisTreeWidget = ui->treeWidget_2;
+    QTreeWidgetItem * item2;
     foreach(QTreeWidgetItem* item, clist)
     {
-        if(item->parent() != 0){
-            qDebug() << item->parent()->text(0);
-           ttt = new QTreeWidgetItem(ui->treeWidget_2,QStringList(item->parent()->text(0)));
-           ttt->treeWidget()->sortItems(0,Qt::DescendingOrder);
-            findParent(item->parent()->text(0));
+        while(item->parent()!=0){
+            item2 = new QTreeWidgetItem();
+            item2->setText(0,item->parent()->text(0));
+            thisTreeWidget->addTopLevelItem(item2);
+            item = item->parent();
         }
+        thisTreeWidget->sortItems(0,Qt::DescendingOrder);
     }
-    delete ttt;
 }
 
 void MainWindow::findChild(QString findItem)
 {
 
-    qDebug() << "findNeighbor: "+findItem;
+    // qDebug() << "findNeighbor: "+findItem;
     QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
     foreach(QTreeWidgetItem* item, clist)
     {
         QString rootName;
-        QTreeWidget * newItem = ui->treeWidget_4;
-        QTreeWidgetItem * qt = new QTreeWidgetItem();
-        qt->setText(0,clist.at(0)->text(0));
+        QTreeWidget * thisTreeWidget = ui->treeWidget_4;
+        QTreeWidgetItem * childsItem = new QTreeWidgetItem();
+        childsItem->setText(0,clist.at(0)->text(0));
         for (int var = 0; var < clist.at(0)->childCount(); ++var) {
             QTreeWidgetItem * qt2 = new QTreeWidgetItem();
             rootName = QString::fromStdString(clist.at(0)->child(var)->text(0).toStdString());;
             qt2->setText(0, rootName);
-            qt->addChild(qt2);
+            childsItem->addChild(qt2);
         }
-        newItem->addTopLevelItem(qt);
-        newItem->expandAll();
+        thisTreeWidget->addTopLevelItem(childsItem);
+        thisTreeWidget->expandAll();
     }
 }
 
 void MainWindow::findNeighbor(QString findTextItem)
 {
 
-
-    qDebug() << "findNeighbor: "+findTextItem;
     QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
+
     foreach(QTreeWidgetItem* item, clist)
     {
-      qDebug() << "index: "+ item->treeWidget()->currentItem()->text(0) ;
-        QTreeWidget * newItem = ui->treeWidget_3;
-        QTreeWidgetItem * qt;
-        for (int var = 0; var < clist.at(0)->childCount(); ++var) {
-            qt = new QTreeWidgetItem();
-            QString rootName;
-            rootName = QString::fromStdString(clist.at(0)->parent()->child(var)->text(0).toStdString());;
-            qt->setText(0, rootName);
-            newItem->addTopLevelItem(qt);
+        QTreeWidget * thisTreeWidget= ui->treeWidget_3;
+        QTreeWidgetItem * neighbor;
+        if(item->parent()!=0){
+            for (int var = 0; var < item->parent()->childCount(); ++var) {
+                neighbor= new QTreeWidgetItem();
+                neighbor->setText(0,item->parent()->child(var)->text(0));
+
+                thisTreeWidget->addTopLevelItem(neighbor);
+            }
+            QList<QTreeWidgetItem*> deleteItem = thisTreeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
+            delete deleteItem.at(0);
         }
-        newItem->expandAll();
+
     }
 
 }
@@ -121,13 +121,17 @@ void MainWindow::findAndOpenPath(QString findTextItem)
     QList<QTreeWidgetItem*> clist = ui->treeWidget->findItems(findTextItem, Qt::MatchExactly|Qt::MatchRecursive, 0);
     foreach(QTreeWidgetItem* item, clist)
     {
+        bool isColor = false;
         while(item->parent()!=0){
-            qDebug() << "openParent "+ item->text(0);
-            item->parent()->treeWidget()->expandItem(item);
+            // qDebug() << "openParent "+ item->text(0);
+            item->treeWidget()->expandItem(item);
+            if(!isColor){
+                  item->setBackground(0,Qt::gray);
+                  isColor = true;
+            }
             item = item->parent();
         }
-         item->treeWidget()->expandItem(item);
-
+        item->treeWidget()->expandItem(item);
     }
 }
 

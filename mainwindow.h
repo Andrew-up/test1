@@ -1,10 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "foo.pb.h"
+
 #include "qtreewidget.h"
 #include <QMainWindow>
 #include <QKeyEvent>
+#include "service/TreeGenerator.h"
 
 QT_BEGIN_NAMESPACE
 using namespace tree;
@@ -23,8 +24,6 @@ public:
     ~MainWindow();
     void addTreeElement(TreeObjectW * parent,int sizeChild,int countRoot);
     void fillTreeBranch(int n, QTreeWidgetItem * item,int countRoot);
-    void test();
-
     void findParent(QString findTextItem);
     void findChild(QString findItem);
     void findNeighbor(QString findTextItem);
